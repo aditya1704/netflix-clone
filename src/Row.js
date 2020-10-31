@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import './Row.css';
 
 //base url to make request to the movie database
 axios.defaults.baseURL='https://api.themoviedb.org/3';
@@ -8,7 +9,7 @@ axios.defaults.baseURL='https://api.themoviedb.org/3';
 const base_url= "https://image.tmdb.org/t/p/original/";
 
 
-function Row({title,fetchUrl}) {
+function Row({title,fetchUrl,size}) {
 
     //set state movies to empty array
     const [movies,setMovies]=useState([]);
@@ -34,7 +35,8 @@ function Row({title,fetchUrl}) {
 
             <div className="row_posters">
                 {movies.map(movie=>(
-                    <img src={`${base_url}${movie.poster_path}`} alt={movie.name} key={movie.id}/>
+                    <img src={`${base_url}${size==="large"?movie.poster_path:movie.backdrop_path}`} alt={movie.name} key={movie.id} 
+                    className={size==="large"?"row_poster-large":"row_poster"} />
                 ))}
             </div>
         </div>
